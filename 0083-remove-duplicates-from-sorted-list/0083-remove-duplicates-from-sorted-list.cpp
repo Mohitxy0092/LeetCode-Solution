@@ -25,7 +25,6 @@ public:
             }
             else {
                 prev=prev->next;
-            temp=temp->next;
         }
             temp=prev->next;
         }
