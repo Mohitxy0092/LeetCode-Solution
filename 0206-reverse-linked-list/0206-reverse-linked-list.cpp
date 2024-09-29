@@ -22,8 +22,8 @@ public:
     ListNode* reverseList(ListNode* head) {
         ListNode*curr= head;
         ListNode*prev=NULL;
-        ListNode* newhead = recur(curr,prev);
-        return newhead;
+       
+        return  recur(curr,prev);
         
     }
 };
