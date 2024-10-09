@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+void merge(vector<int> &v, int s, int e, int mid) {
+  int Lind = mid - s + 1;
+  int Rind = e - mid;
+  vector<int> L(Lind);
+  vector<int> R(Rind);
+  int jk = s;
+  for (int i = 0; i < Lind; i++) {
+    L[i] = v[jk];
+    jk++;
+  }
+  int k = mid + 1;
+  for (int i = 0; i < Rind; i++) {
+    R[i] = v[k];
+    k++;
+  }
+  int i = 0;
+  int j = 0;
+  int mind = s;
+  while (i < Lind && j < Rind) {
+    if (L[i] < R[j]) {
+      v[mind++] = L[i++];
+    } else {
+      v[mind++] = R[j++];
+    }
+  }
+  while (i < Lind) {
+    v[mind++] = L[i++];
+  }
+  while (j < Rind) {
+    v[mind++] = R[j++];
+  }
+}
+void mergeSort(vector<int> &v, int s, int e) {
+  if (s >= e) {
+    return;
+  }
+  int mid = s + (e - s) / 2;
+  mergeSort(v, s, mid);
+  mergeSort(v, mid + 1, e);
+  merge(v, s, e, mid);
+}
+
+int main() {
+  vector<int> v{2, 3, 1, 4, 7, 5};
+  for (auto n : v) {
+    cout << n << " ";
+  }
+  cout << "\n";
+  mergeSort(v, 0, v.size() - 1);
+  for (auto n : v) {
+    cout << n << " ";
+  }
+}
