@@ -8,15 +8,15 @@ public:
                 st.push(ch);
             }
             else {
-                if(ch==')' && !st.empty() && st.top()=='(' ) {
+                if((ch==')' && !st.empty() && st.top()=='(' ) || (ch==']' &&!st.empty() &&st.top()=='[') || (ch=='}' && !st.empty() && st.top()=='{')  ) {
                     st.pop();
                 }
-                else if(ch==']' &&!st.empty() &&st.top()=='[') {
-                    st.pop();
-                }
-                else if(ch=='}' && !st.empty() && st.top()=='{') {
-                    st.pop();
-                }
+                // else if {
+                //     st.pop();
+                // }
+                // else if{
+                //     st.pop();
+                // }
                 else {
                     return false;
                 }
