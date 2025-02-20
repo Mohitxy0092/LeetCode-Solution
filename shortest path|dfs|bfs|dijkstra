@@ -1,0 +1,146 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Graph {
+    public:
+    unordered_map<int,list<pair<int,int>>>adjlist;
+    void addEdge(int key,int val,bool dir,int wght) {
+        if(dir) {
+            adjlist[key].push_back({val,wght});
+        }
+        else {
+            adjlist[key].push_back({val,wght});
+            adjlist[val].push_back({key,wght});
+        }
+    }
+    // void shortestPath(int src,int dest) {
+    //     unordered_map<int,bool>vis;
+    //     unordered_map<int,int>prnt;
+    //     queue<int>q;
+    //     q.push(src);
+    //     vis[src]=true;
+    //     prnt[src]=-1;
+    //     while(!q.empty()) {
+    //         int front=q.front();
+    //         q.pop();
+    //         for(auto nbr : adjlist[front]) {
+    //             if(!vis[nbr]) {
+    //                 q.push(nbr);
+    //                 vis[nbr]=true;
+    //                 prnt[nbr]=front;
+    //             }
+    //         }
+    //     }
+    //     vector<int>path;
+    //     int node=dest;
+    //     while(node!=-1) {
+    //         path.push_back(node);
+    //         node=prnt[node];
+    //     }
+    //     reverse(begin(path),end(path));
+    //     cout << "Shortest path is :-- ";
+    //     for(auto n : path) {
+    //         cout << n << "-->";
+    //     }
+        
+    // } 
+    // void topoSort(unordered_map<int,bool>&vis,stack<int>&ans,int src) {
+    //     vis[src]=true;
+    //     for(auto nbr : adjlist[src]) {
+    //         if(!vis[nbr.first]) {
+    //             topoSort(vis,ans,nbr.first);
+    //         }
+    //     }
+    //     ans.push(src);
+    // }
+    // void shortestPathdfs(int src) {
+    //     stack<int>ans;
+    //     unordered_map<int,bool>vis;
+    //     unordered_map<int,int>prnt;
+    //     prnt[src]=-1;
+    //     topoSort(vis,ans,src);
+    //     int size=ans.size();
+    //     vector<int>dist(size,INT_MAX);
+    //     src=ans.top();
+    //     ans.pop();
+    //     dist[src]=0;
+    //     for(auto  nbr: adjlist[src]) {
+    //         int node=nbr.first;
+    //         int weight=nbr.second;
+    //         if(dist[src]+weight < dist[node]) {
+    //             dist[node] = dist[src] + weight;
+    //             prnt[node]=src;
+    //         }
+            
+    //     }
+    //     while(!ans.empty()) {
+    //         int front=ans.top();
+    //         ans.pop();
+    //         for(auto nbr : adjlist[front]) {
+    //             int node=nbr.first;
+    //             int weight=nbr.second;
+    //             if(dist[front]+weight < dist[node]) {
+    //                 dist[node]=dist[front]+weight;
+    //             prnt[node]=front;
+    //             }
+    //         }
+    //     }
+    //     cout << "Printing minimum distance --> ";
+    //     for(auto n : dist) {
+    //         cout << n << " ";
+    //     }
+    //     cout << endl;
+    //     // checking shortest path from src to dest
+    //     //  make parent map --> check dist !=-1
+    //     // print it and assign it 
+    //     int distt=2;
+    //     while(distt!=-1) {
+    //         cout << distt << " ";
+    //         distt=prnt[distt];
+    //     }        
+   // }
+   void Dijkstra(int src,int n) {
+    vector<int>dist(n+1,INT_MAX);
+    set<pair<int,int>>st;
+    dist[src]=0;
+    // distance , node
+    st.insert({0,src});
+    while(!st.empty()) {
+        auto front= *(st.begin());
+        int frontdist=front.first;
+        int frontelement=front.second;
+        st.erase(st.begin());
+        for(auto nbr : adjlist[frontelement]) {
+            int nbrdist=nbr.second;
+            int nbrelement=nbr.first;
+            if(dist[frontelement]+nbrdist < dist[nbrelement]) {
+                auto res=st.find({dist[nbrelement],nbrelement});
+                if(res!=st.end()) {
+                    st.erase(res);
+                }
+                dist[nbrelement]=nbrdist+dist[frontelement];
+                st.insert({dist[nbrelement],nbrelement});
+            }
+        }
+      
+    }
+    cout << "printing dist-->>>>>";
+    for(int i=0;i<n;i++) {
+        cout << dist[i] << " ";
+    }
+    }
+};
+int main() {
+    Graph g;
+    g.addEdge(0,5,1,9);
+    g.addEdge(0,3,1,6);
+    g.addEdge(5,4,1,2);
+    g.addEdge(4,3,1,11);
+    g.addEdge(5,1,1,14);
+    g.addEdge(4,1,1,9);
+    g.addEdge(4,2,1,10);
+    g.addEdge(3,2,1,15);
+    g.addEdge(2,1,1,7);
+    // g.shortestPath(0);
+    g.Dijkstra(0,9);
+    return 0;
+}
