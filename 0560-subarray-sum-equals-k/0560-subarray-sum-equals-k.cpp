@@ -8,7 +8,7 @@ public:
         for(int i=0;i<n;++i) {
             pre+=nums[i];
             if(pre==k) cnt++;
-            else if(st.find(pre-k)!=st.end()) cnt+=st[pre-k];
+            if(st.find(pre-k)!=st.end()) cnt+=st[pre-k];
             st[pre]++;
         }
         return cnt;
