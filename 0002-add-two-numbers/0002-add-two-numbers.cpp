@@ -10,26 +10,22 @@
  */
 class Solution {
 public:
-    ListNode*iterativeWay(ListNode*l1,ListNode*l2) {
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         ListNode*ans=new ListNode(-1);
         ListNode*it=ans;
         int carry=0;
         while(l1 || l2 || carry) {
-            int a= l1 ? l1->val : 0;
-            int b=l2 ? l2->val : 0;
-            int sum=a+b+carry;
+            int v1=l1 ? l1->val: 0;
+            int v2=l2 ? l2->val: 0;
+            int sum=v1+v2+carry;
             int digit=sum%10;
             carry=sum/10;
             it->next=new ListNode(digit);
             it=it->next;
-            l1= l1 ? l1->next : nullptr;
-            l2= l2 ? l2->next : nullptr;
+            l1=l1?l1->next : nullptr;
+            l2=l2?l2->next : nullptr;
         }
         ListNode*res=ans->next;
-        delete ans;
         return res;
-    }
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-     return iterativeWay(l1,l2);
     }
 };
